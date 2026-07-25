@@ -1,8 +1,8 @@
 #version 330 compatibility
 
-out vec4 glColor;
+out vec2 texCoord;
 
 void main() {
 	gl_Position = ftransform();
-	glColor = gl_Color;
+	texCoord = gl_MultiTexCoord0.xy;
 }

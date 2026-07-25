@@ -1,20 +1,12 @@
-#version 330 core
-
-layout(location = 0) in vec3 vaPosition;
-layout(location = 1) in vec2 vaUV0;
-layout(location = 2) in vec2 vaUV2;
-layout(location = 3) in vec4 vaColor;
-
-uniform mat4 gbufferModelView;
-uniform mat4 gbufferProjection;
+#version 330 compatibility
 
 out vec2 texCoord;
 out vec2 lmCoord;
-out vec4 color;
+out vec4 glColor;
 
 void main() {
-    gl_Position = gbufferProjection * gbufferModelView * vec4(vaPosition, 1.0);
-    texCoord = vaUV0;
-    lmCoord = vaUV2 * (1.0 / 256.0) + (1.0 / 32.0);
-    color = vaColor;
+	gl_Position = ftransform();
+	texCoord = (gl_TextureMatrix[0] * gl_MultiTexCoord0).xy;
+	lmCoord  = (gl_TextureMatrix[1] * gl_MultiTexCoord1).xy;
+	glColor  = gl_Color;
 }
